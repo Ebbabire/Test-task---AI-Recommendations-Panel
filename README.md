@@ -2,7 +2,7 @@
 
 A high-fidelity, clinical-grade React component designed for displaying AI-generated veterinary treatment recommendations. This project focuses on data clarity, readability, and distinct visual hierarchy suitable for medical interfaces.
 
-![Project Preview](src/assets/ui_preview.png)
+![Project Preview](./src/assets/ui_preview.png)
 
 ## ✨ Features
 
@@ -58,32 +58,3 @@ A high-fidelity, clinical-grade React component designed for displaying AI-gener
     ```bash
     npm run dev
     ```
-
-## 🎨 Design Philosophy
-
-### "Clinical" = High Readability
-
-- **Typography**: Uses `Inter` for general UI text and `JetBrains Mono` for dosage numbers to prevent ambiguity (e.g., distinguishing `1` from `l`).
-- **Color Palette**: Relies on `Slate` (Greys) for structure, `Emerald` (Green) for success/safe indicators, and `Indigo` for primary actions. Red is reserved strictly for errors or dangerous contraindications.
-- **Feedback**: Immediate visual feedback for actions (copying) and system states (loading/validating).
-
-## 🧩 Usage Example
-
-The main component expects a `ClinicalData` object:
-
-```tsx
-import { RecommendationsPanel } from './components/RecommendationsPanel';
-
-const data = {
-  summary: "Patient details...",
-  recommendations: [
-    { title: "Medication", value: "Amoxicillin" }
-  ],
-  flags: ["No allergies"],
-  history: [...]
-};
-
-function PatientView() {
-  return <RecommendationsPanel data={data} />;
-}
-```
