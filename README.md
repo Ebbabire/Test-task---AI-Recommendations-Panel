@@ -2,7 +2,7 @@
 
 A high-fidelity, clinical-grade React component designed for displaying AI-generated veterinary treatment recommendations. This project focuses on data clarity, readability, and distinct visual hierarchy suitable for medical interfaces.
 
-![Project Preview](./assets/ui_preview.png)
+![Project Preview](src/assets/ui_preview.png)
 
 ## ✨ Features
 
