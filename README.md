@@ -1,73 +1,89 @@
-# React + TypeScript + Vite
+# Clinical AI Recommendations Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-fidelity, clinical-grade React component designed for displaying AI-generated veterinary treatment recommendations. This project focuses on data clarity, readability, and distinct visual hierarchy suitable for medical interfaces.
 
-Currently, two official plugins are available:
+![Project Preview](https://placehold.co/800x400/f8fafc/64748b?text=Clinical+UI+Preview)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- **Clinical-Grade UI**: Built with specific attention to contrast, typography (Inter & JetBrains Mono), and whitespace to reduce cognitive load for practitioners.
+- **Smart Validation**: Includes a simulated "Context Match" system. If a user alters the clinical summary, the system validates it against the source data, triggering a debounce -> loading -> error workflow to prevent hallucinations or context drift.
+- **Interactive Elements**:
+  - **Editable Summary**: Auto-resizing textarea with debounce logic.
+  - **Patient History**: detailed history view in a modal overlay.
+  - **Copy Functionality**: One-click clipboard action with tooltip feedback.
+- **Dark Mode Support**: Fully integrated dark theme for low-light clinical environments.
+- **Responsive Design**: Adapts seamlessly from desktop to tablet/mobile viewports.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠 Tech Stack
 
-## Expanding the ESLint configuration
+- **Framework**: React 19
+- **Styling**: Tailwind CSS (Utility-first)
+- **Icons**: Lucide React
+- **Language**: TypeScript
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📂 Project Structure
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+├── components/
+│   ├── Badge.tsx               # Clinical status indicators
+│   ├── Modal.tsx               # Reusable dialog overlay
+│   ├── RecommendationCard.tsx  # Individual data point display
+│   ├── RecommendationsPanel.tsx# Main logic controller & UI
+│   └── Skeleton.tsx            # Loading state placeholders
+├── hooks/
+│   └── useTheme.ts             # Dark/Light mode logic
+├── constants.ts                # Mocked clinical data
+├── types.ts                    # TypeScript interfaces
+├── App.tsx                     # Application entry layout
+└── index.tsx                   # React root mount
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js & npm/yarn (if running locally)
+- A modern browser
+
+### Installation
+
+1.  **Clone the repository** (or copy the files into a standard React + Vite/CRA template).
+2.  **Install dependencies**:
+    ```bash
+    npm install react react-dom lucide-react
+    # Ensure Tailwind CSS is configured in your project
+    ```
+3.  **Run the development server**:
+    ```bash
+    npm run dev
+    ```
+
+## 🎨 Design Philosophy
+
+### "Clinical" = High Readability
+
+- **Typography**: Uses `Inter` for general UI text and `JetBrains Mono` for dosage numbers to prevent ambiguity (e.g., distinguishing `1` from `l`).
+- **Color Palette**: Relies on `Slate` (Greys) for structure, `Emerald` (Green) for success/safe indicators, and `Indigo` for primary actions. Red is reserved strictly for errors or dangerous contraindications.
+- **Feedback**: Immediate visual feedback for actions (copying) and system states (loading/validating).
+
+## 🧩 Usage Example
+
+The main component expects a `ClinicalData` object:
+
+```tsx
+import { RecommendationsPanel } from './components/RecommendationsPanel';
+
+const data = {
+  summary: "Patient details...",
+  recommendations: [
+    { title: "Medication", value: "Amoxicillin" }
+  ],
+  flags: ["No allergies"],
+  history: [...]
+};
+
+function PatientView() {
+  return <RecommendationsPanel data={data} />;
+}
 ```
