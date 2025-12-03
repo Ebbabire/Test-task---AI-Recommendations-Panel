@@ -42,7 +42,7 @@ export const RecommendationsPanel: React.FC<RecommendationsPanelProps> = ({
 
       if (normalize(debouncedValue) !== normalize(data.summary)) {
         setError(
-          "The system detected inconsistencies in the case narrative and cannot generate reliable clinical insights. Please clarify the summary for accurate assessment."
+          "The AI was unable to interpret the provided summary. Please try another summery input for accurate analysis."
         );
       } else {
         setError(null);
